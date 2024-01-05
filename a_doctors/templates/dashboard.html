@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to Your Social Media Dashboard, {{ user.username }}!</h1>
+
+    <h2>Recent Activities:</h2>
+    {% if activities %}
+        <ul>
+            {% for activity in activities %}
+                <li>
+                    <strong>{{ activity.platform }}:</strong> {{ activity.post_content }}
+                    <!-- Add other fields like comments, likes, etc. -->
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No activities yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+</body>
+</html>

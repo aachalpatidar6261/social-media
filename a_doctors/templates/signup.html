@@ -1,0 +1,112 @@
+{% extends 'header.html' %}
+{% load static %} <!-- it is load static folder on html -->
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+</head>
+<body>
+       <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Banner Area Starts -->
+    <section class="banner-area other-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Sign Up</h1>
+                    <a href="/">Home</a> <span>|</span> <a href="{% url 'signup' %}">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End -->
+   
+    <!-- Welcome Area Starts -->
+    <br>
+    <br>
+    <!-- Patient Area Starts -->
+    <section class="patient-area section-padding3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 offset-lg-3 align-self-center">
+                    <div >
+                        <div class="appointment-form text-center mt-5 mt-lg-2">
+                            <h3 class="mb-5">Sign up</h3>
+                            {% if msg %}
+                                <b style="color: blue;">{{msg}}</b>
+                            {% endif %}
+                            
+                            <form name="signup" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                                {% csrf_token %}                                
+
+                                
+                                <div class="form-group">
+                                    <input type="text" placeholder="Enter First Name" name="fname" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Enter Last Name" name="lname" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" placeholder="Enter Email" id="email" name="email" required> 
+                                    <span id="email_error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" placeholder="Enter Mobile No" name="mobile" required> 
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="Enter Password" name="password" required> 
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="Enter Confirm Password" name="cpassword" required>
+                                </div>
+                            
+                                
+                                <div class="form-group">
+                                    <input type="file" name="profile_pic" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="template-btn" type="submit" name="submit" value="Sign Up"> 
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $("#email").change(function()
+                                    {
+                                     var email=$(this).val();
+                                     $.ajax
+                                     ({
+                                        url: '/ajax/validate-email',
+                                        data:{
+                                                'email':email
+                                            },
+                                        dataType: 'json',
+                                        success: function(data)                                   
+                                        {
+                                            if (data.is_taken)
+                                            {
+                                             document.getElementById("email_error").innerHTML="This Email is Already Registered"
+                                            }
+                                            else
+                                            {
+                                              document.getElementById("email_error").innerHTML="";
+                                            }
+                                        }
+                                     });                              
+                                    });
+      
+      </script>
+
+</body>
+</html>
+{% endblock %}

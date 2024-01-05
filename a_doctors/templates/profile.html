@@ -1,0 +1,81 @@
+{% extends 'header.html' %}
+{% load static %} <!-- it is load static folder on html -->
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+</head>
+<body>
+    <!-- Preloader Starts -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    
+    <!-- Banner Area Starts -->
+    <section class="banner-area other-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Profile</h1>
+                    <a href="/">Home</a> <span>|</span> <a href="{% url 'profile' %}">Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End -->
+
+    <!-- Welcome Area Starts -->
+    
+    <br>
+    <br>
+    <!-- Patient Area Starts -->
+    <section class="patient-area section-padding3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 offset-lg-1 align-self-center">
+                    <div class="appointment-form text-center mt-5 mt-lg-0">
+                        <h3 class="mb-5">Profile</h3>
+                        
+                        {% if msg %}
+                            <b style="color: blue;">{{msg}}</b>
+                        {% endif %}
+                        <form name="signup" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <img src="{{user.profile_pic.url}}" width="100px" height="100px">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="fname" placeholder="Enter First Name" value="{{user.fname}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="lname" placeholder="Enter Last Name" value="{{user.lname}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Enter Email" value="{{user.email}}" readonly> 
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="mobile" placeholder="Enter Mobile no" value="{{user.mobile}}"> 
+                            </div>                       
+                            <div class="form-group">
+                                <input type="text" name="address" placeholder="Enter Address" value="{{user.address}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="profile">
+                            </div>
+                            <div class="form-group">
+                                <input class="template-btn" type="submit" name="submit" value="Profile UPDATE"> 
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+{% endblock %}
